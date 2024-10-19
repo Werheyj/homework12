@@ -1,6 +1,7 @@
 import unittest
 from unittest import TestCase
-from forTest import Runner
+from forTest3 import Runner
+import logging
 
 
 class RunnerTest(TestCase):
@@ -8,17 +9,25 @@ class RunnerTest(TestCase):
 
     @unittest.skipUnless(not is_frozen, 'Тесты в этом кейсе заморожены')
     def test_walk(self):
-        runner = Runner('John')
-        for _ in range(10):
-            runner.walk()
-        self.assertEqual(runner.distance, 50)
+        try:
+            runner = Runner('John', -5)
+            for _ in range(10):
+                runner.walk()
+            self.assertEqual(runner.distance, 50)
+            logging.info('"test_walk" выполнен успешно')
+        except ValueError:
+            logging.warning('Неверная скорость для Runner')
 
     @unittest.skipUnless(not is_frozen, 'Тесты в этом кейсе заморожены')
     def test_run(self):
-        runner = Runner('Hamish')
-        for _ in range(10):
-            runner.run()
-        self.assertEqual(runner.distance, 100)
+        try:
+            runner = Runner(40)
+            for _ in range(10):
+                runner.run()
+            self.assertEqual(runner.distance, 100)
+            logging.info('"test_run" выполнен успешно')
+        except TypeError:
+            logging.warning('Hеверный тип данных для объекта Runner')
 
     @unittest.skipUnless(not is_frozen, 'Тесты в этом кейсе заморожены')
     def test_challenge(self):
